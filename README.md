@@ -1,4 +1,11 @@
 # About
+## Credits
+
+Here are the two libraries (I guess you can call it? I am new to C++ so I dunno) I used with the link to their GitHub repository, both are in the include folder:
+- BigInt.hpp - https://github.com/faheel/BigInt
+- json.hpp - https://github.com/nlohmann/json
+
+## Basic info
 **Since this version acts pretty much exact same the original, I reuse the same README**
 
 Hello, currrently, this repository allows users to assign a unique index to any string, with the index scaling up with the length of the string
