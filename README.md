@@ -88,10 +88,17 @@ There are few commands you can use to use it, as seen using the 'h' command:
 ## Customisation
 
 We can customise the calculator a bit, by copying the json file and changing the following:
-- The 'order' array defines in which order do the characters go, every element has to be a string of length 1, duplicates can be there but can make the indexes inaccurate so I don't recomend them.
-- The 'caseSensitive' bool says whatever it should be case sensitive or not, if it is set to false, it will just turn everything lowercase.
-- The 'reverseAppend' bool says whatever the append should be reversed, for example "code" will normaly be 4 3 14 2, but with reverse append it will be reversed.
-- The 'minLen' integer says what should be the minimal length avaible, this just subtracts the final index by the smallest index of the minimal length, for example if we make minLen = 2, it will make "aa" turn into 0, instead of being 27.
+- The 'order' array defines in which order do the characters go
+    - Duplicates should not be present, since translating into and back from the index
+    - Unicode characters are allowed, but caseSensitive should be set to true when used
+    - Multiple characters in one item are allowed, but they will act as duplicates if any substring starting at the beginning of the string is a duplicate
+- The 'caseSensitive' bool defines whatever it should be case sensitive or not
+    - If it is set to false, it will just turn everything lowercase.
+    - It is highly recomended to set this to true when unicode characters are used, since unicode letters won't be turned to lowercase if false
+- The 'reverseAppend' bool defines whatever the append should be reversed
+    - For example "code" will normaly be 4 3 14 2, but with reverse append it will instead be 2 14 3 4
+- The 'minLen' integer defines what should be the minimal length available
+    - It starts indexing with the first string of that length
 
 ## Algorithms intended to be done by human
 
