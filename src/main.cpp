@@ -11,6 +11,7 @@
 using json = nlohmann::json;
 
 
+// Ask user for a command and return it
 char getCommand() {
     while (true) {
         std::cout << "-";
@@ -44,6 +45,7 @@ char getCommand() {
     }
 }
 
+// Ask user for a string and return it
 std::string getString() {
     while (true) {
         std::cout << "Enter a string: \n";
@@ -64,6 +66,7 @@ std::string getString() {
     }
 }
 
+// Ask user for an index and return it
 BigInt getIndex() {
     while (true) {
         std::cout << "Enter an index: ";
@@ -89,6 +92,7 @@ BigInt getIndex() {
 }
 
 
+// Print help
 void printHelp() {
     std::cout << "Current available commands:\n";
     std::cout << "  -h\n";
@@ -103,6 +107,7 @@ void printHelp() {
     std::cout << "    - Finds a string using an index\n";
 }
 
+// Ask user for a path to a json file with new character set
 void refile(CharacterSet& characterSet) {
     while (true) {
         std::cout << "Enter a filename: ";
@@ -152,10 +157,15 @@ void refile(CharacterSet& characterSet) {
             continue;
         }
 
+        if (!testCharacterSet(characterSet)) {
+            std::cout << "The new character set may be inaccurate.\n";
+        }
+
         return;
     }
 }
 
+// Ask user for a string and print its index
 void forward(const CharacterSet& characterSet) {
     std::string str {getString()};
     BigInt index {toIndex(str, characterSet)};
@@ -167,6 +177,7 @@ void forward(const CharacterSet& characterSet) {
     std::cout << "The string's index: " << index << ".\n";
 }
 
+// Ask user for an index and print the corresponding string
 void backward(const CharacterSet& characterSet) {
     BigInt index {getIndex()};
     std::string str {fromIndex(index, characterSet)};

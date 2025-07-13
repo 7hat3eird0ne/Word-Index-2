@@ -53,7 +53,7 @@ BigInt toIndex(std::string str, const CharacterSet& characterSet) {
     if (characterSet.isReverseAppend()) {
         reverseStr(str);
     }
-    if (characterSet.isCaseSensitive()) {
+    if (!characterSet.isCaseSensitive()) {
         str = toLower(str);
     }
     int index {};
@@ -62,7 +62,7 @@ BigInt toIndex(std::string str, const CharacterSet& characterSet) {
         int letterIndex {};
         ++index;
         for (auto tested: characterSet.getOrder()) {
-            if (characterSet.isCaseSensitive()) {
+            if (!characterSet.isCaseSensitive()) {
                 tested = toLower(tested);
             }
             if (str.substr(toUnsign(curIndex), tested.size()) == tested) {
@@ -78,7 +78,7 @@ BigInt toIndex(std::string str, const CharacterSet& characterSet) {
             return WordIndexErrors::toIndexError;
         }
         if (index == characterSet.getMinLen()) {
-             result -= (power-1)/(charsetLength-1);
+            result -= (power-1)/(charsetLength-1);
         }
 
     }
@@ -119,7 +119,7 @@ std::string fromIndex(BigInt index, const CharacterSet& characterSet) {
     std::string result {""};
     while (length) {
         std::string pushedChar {characterSet.getOrder().data()[(repres%charsetLength).to_int()]};
-        if (characterSet.isCaseSensitive()) {
+        if (!characterSet.isCaseSensitive()) {
             pushedChar = toLower(pushedChar);
         }
         result.append(pushedChar);
@@ -131,4 +131,29 @@ std::string fromIndex(BigInt index, const CharacterSet& characterSet) {
     }
 
     return result;
+}
+
+// Return false if the character set is inaccurate, true otherwise
+bool testCharacterSet(const CharacterSet& characterSet) {
+    if (!characterSet.isCaseSensitive()) {
+        std::vector<std::string> testedStrings {};
+        for (const auto& character: characterSet.getOrder()) {
+            std::string loweredCharacter = toLower(character);
+            for (const auto& testedCharacter: testedStrings) {
+                if (loweredCharacter == testedCharacter) {
+                    return false;
+                }
+            }
+            testedStrings.push_back(character);
+        }
+    }
+
+    CharacterSet newCharacterSet {characterSet.getOrder(), characterSet.isCaseSensitive(), characterSet.isReverseAppend(), 0};
+    for (int testedIndex {0}; testedIndex < toSign(1 + characterSet.getOrder().size() + characterSet.getOrder().size()*characterSet.getOrder().size()); ++testedIndex) {
+        if (testedIndex != toIndex(fromIndex(testedIndex, newCharacterSet), newCharacterSet)) {
+            return false;
+        }        
+    }
+
+    return true;
 }

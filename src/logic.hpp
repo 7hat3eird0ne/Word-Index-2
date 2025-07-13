@@ -15,4 +15,6 @@ BigInt toIndex(std::string string, const CharacterSet& characterSet);
 
 std::string fromIndex(BigInt index, const CharacterSet& characterSet);
 
+bool testCharacterSet(const CharacterSet& characterSet);
+
 #endif

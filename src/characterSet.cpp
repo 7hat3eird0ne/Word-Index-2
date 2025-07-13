@@ -6,8 +6,10 @@
 using json = nlohmann::json;
 
 
+// Default constructor
 CharacterSet::CharacterSet() {}
 
+// Construct using the parameters
 CharacterSet::CharacterSet(std::vector<std::string> iOrder, bool iCaseSensitive, bool iReverseAppend, int iMinLen)
     : loaded {true}
     , order {iOrder}
@@ -16,22 +18,27 @@ CharacterSet::CharacterSet(std::vector<std::string> iOrder, bool iCaseSensitive,
     , minLen {iMinLen}
 {}
 
+// Return CharacterSet.loaded
 bool CharacterSet::isLoaded() const {
     return loaded;
 }
 
+// Return CharacterSet.order
 std::vector<std::string> CharacterSet::getOrder() const {
     return order;
 }
 
+// Return CharacterSet.caseSensitive
 bool CharacterSet::isCaseSensitive() const {
     return caseSensitive;
 }
 
+// Return CharacterSet.reverseAppend
 bool CharacterSet::isReverseAppend() const {
     return reverseAppend;
 }
 
+// Return CharacterSet.minLen
 int CharacterSet::getMinLen() const {
     return minLen;
 }
