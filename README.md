@@ -30,7 +30,7 @@ I would like to note that I made this just for fun + this is very messy and very
 
 ## The math behind it
 
-The way the number is actualy computed and the math behind it is pretty simple:
+This is the way the way to compute the index is derived, if you want the simple way to compute it, go to the last section:
 
 1. First we convert every individual character in the string to a digit from 0 to N-1 where N is the amount of characters in character set, we can just say that it is the index of the character in the list
 1. Then we put them together and convert the number represenation to the decimal base
@@ -125,7 +125,7 @@ We can customise the calculator a bit, by copying the json file and changing the
 1. If C > I, go to step 6, else if C = I, go to step 8, else go to step 2
 1. Divide T by N
 1. Subtract 1 from L 
-1. Let S = (T-1)/(N-1), if C = I, then let S = C
+1. If C = I, then let S = C, else let S = (T-1)/(N-1)
 1. Let X = I - S
 1. Divide X by N, let R = remainder
 1. Find the character corresponding to the remainder as an index in the character set
