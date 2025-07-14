@@ -106,7 +106,7 @@ We can customise the calculator a bit, by copying the json file and changing the
 - The 'minLen' integer defines what should be the minimal length available
     - It starts indexing with the first string of that length
 - The 'strict' bool defines how it should react to unexpected characters
-    - True makes it return WordIndexErrors::toIndexError, false makes it ignore it
+    - True makes it return WordIndexErrors::toIndexError, false makes it ignore them
 A character set is inaccurate if a string, which if translated to index and back from it doesn't end up looking same, exists
 
 ## Algorithms intended to be done by human
