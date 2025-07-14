@@ -110,7 +110,7 @@ void printHelp() {
 // Ask user for a path to a json file with new character set
 void refile(CharacterSet& characterSet) {
     while (true) {
-        std::cout << "Enter a filename: ";
+        std::cout << "Enter a filename (or q to quit reload): ";
         std::string filepath {};
         std::cin >> filepath;
 
@@ -124,6 +124,10 @@ void refile(CharacterSet& characterSet) {
         if (!success) {
             std::cout << "Failed somehow.\n";
             continue;
+        }
+
+        if (filepath == "q") {
+            break;
         }
 
         std::ifstream fp {filepath};
