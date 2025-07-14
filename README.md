@@ -71,6 +71,8 @@ This is the way the way to compute the index is derived, if you want the simple 
 1. Then we add it to our numerical representation and we get our result formula:
     - index = numRepres + (N\*\*L-1)/(N-1)
 
+1. A better alternative is also to just compute numRepres directly with the first character being 1 instead of 0
+
 ## How to use
 
 There are few commands you can use to use it, as seen using the 'h' command:
@@ -109,30 +111,22 @@ A character set is inaccurate if a string, which if translated to index and back
 
 1. Let R = 0, M = 1, N = amount of characters in character set
 1. Take the first character, or next unused one
-1. Find the characters index in the character set (starting with 0 going up to N-1)
+1. Find the characters index in the character set (starting with 1 going up to N)
 1. Multiply index of the character by M and add it to R
 1. Multiply M by N
-1. If there are more characters, go to step 2, else continue to step 7
-1. Let S = (M-1)/(N-1)
-1. Add S to R
+1. If there are more characters, go to step 2, else continue to step 7.
 1. Output R
 
 ### Index to String
 
-1. Let L = 0, T = 1, I = index, N = amount of characters in character set
-1. Multiply T by N
-1. Add 1 to L
-1. Let C = (T-1)/(N-1)
-1. If C > I, go to step 6, else if C = I, go to step 8, else go to step 2
-1. Divide T by N
-1. Subtract 1 from L 
-1. If C = I, then let S = C, else let S = (T-1)/(N-1)
-1. Let X = I - S
-1. Divide X by N, let R = remainder
-1. Find the character corresponding to the remainder as an index in the character set
+1. Let I = index, N = amount of characters in character set
+1. Subtract 1 from I
+1. Let R = I modulo N
+1. Add 1 to I
+1. Divide I by N
+1. Find the character corresponding to the remainder as an index in the character set (starting with 1 going up to N)
 1. Append the character to the end of the result string
-1. Subtract 1 from L
-1. If L = 0, go to step 15, else go to step 10
+1. If I = 0, continue to step 9., else go to step 2.
 1. Output the result string
 
 This is most probably everything for now. Feel free to use it if it can be remotely usable in your case
