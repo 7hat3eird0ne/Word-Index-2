@@ -72,6 +72,10 @@ This is the way the way to compute the index is derived, if you want the simple 
     - index = numRepres + (N\*\*L-1)/(N-1)
 
 1. A better alternative is also to just compute numRepres directly with the first character being 1 instead of 0
+    - The correction factor by definition acts as the index on its own when its the first string of that length, therefore it is the sum of amount of different possible strings of each length before and including it
+    - That is sum(N\*\*j, where j = 0 -> L-1), similar to what we saw earlier, aka the sum of all the powers on go (ex. 1, 26, 676, etc)
+    - We can break down the sum and group it with each corresponding character in numRepres, resulting in each character being able to be just treated as indexed from 1 instead of 0
+
 
 ## How to use
 

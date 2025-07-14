@@ -68,6 +68,7 @@ BigInt toIndex(std::string str, const CharacterSet& characterSet) {
             if (str.substr(toUnsign(curIndex), tested.size()) == tested) {
                 curIndex += toSign(tested.size());
                 found = true;
+                ++letterIndex;
                 result += letterIndex * power;
                 power *= charsetLength;
                 break;
@@ -82,8 +83,6 @@ BigInt toIndex(std::string str, const CharacterSet& characterSet) {
         }
 
     }
-    
-    result += (power-1)/(charsetLength-1);
 
     return result;
 }
@@ -95,36 +94,25 @@ std::string fromIndex(BigInt index, const CharacterSet& characterSet) {
     }
 
     const int charsetLength {toSign(characterSet.getOrder().size())};
-    int length {1};
-    BigInt prevPower {1};
-    BigInt power {charsetLength};
-    BigInt correct {1};
-    while (length <= characterSet.getMinLen() || correct < index) {
-        if (length == characterSet.getMinLen()) {
-            index += correct;
-        }
+    int length {0};
+    BigInt power {1};
+    BigInt correct {0};
+    while (length < characterSet.getMinLen()) {
         ++length;
-        prevPower = power;
         power *= charsetLength;
         correct = (power-1)/(charsetLength-1);
     }
+    index += correct;
 
-    if (correct != index) {
-        --length;
-        power = prevPower;
-        correct = (power-1)/(charsetLength-1);
-    }
-
-    BigInt repres {index - correct};
     std::string result {""};
-    while (length) {
-        std::string pushedChar {characterSet.getOrder().data()[(repres%charsetLength).to_int()]};
+    while (index > 0) {
+        --index;
+        std::string pushedChar {characterSet.getOrder().data()[(index%charsetLength).to_int()]};
         if (!characterSet.isCaseSensitive()) {
             pushedChar = toLower(pushedChar);
         }
         result.append(pushedChar);
-        repres /= charsetLength;
-        --length;
+        index /= charsetLength;
     }
     if (characterSet.isReverseAppend()) {
         reverseStr(result);
