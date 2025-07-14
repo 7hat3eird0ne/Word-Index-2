@@ -1,8 +1,8 @@
 #include "logic.hpp"
 #include "characterSet.hpp"
 #include "BigInt.hpp"
-#include <string_view>
 #include <string>
+#include <string_view>
 #include <utility>
 
 

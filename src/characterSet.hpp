@@ -1,7 +1,6 @@
 #ifndef WORDINDEX_CHARACTERSET_HPP
 #define WORDINDEX_CHARACTERSET_HPP
 
-#include "characterSet.hpp"
 #include "json.hpp"
 #include <string>
 #include <vector>
