@@ -101,7 +101,9 @@ ReloadFileReturn reloadFile(CharacterSet& characterSet, const std::string& filep
     if (!fp) {
         return ReloadFileReturn::file_not_found;
     }
-    json jsonCharacterSet {json::parse(fp)};
+
+    json jsonCharacterSet {};
+    jsonCharacterSet = json::parse(fp);
 
     CharacterSet characterSetTemp {
         jsonCharacterSet.at("order").get<std::vector<std::string>>(),
