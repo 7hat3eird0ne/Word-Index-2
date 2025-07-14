@@ -63,7 +63,8 @@
         "8",
         "9",
         "_",
-        "-"
+        "-",
+        "="
     ],
     "caseSensitive": true,
     "reverseAppend": false,
