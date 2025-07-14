@@ -96,6 +96,7 @@ enum class ReloadFileReturn {
     inaccurate
 };
 
+// Load the JSON file on filepath into the character set
 ReloadFileReturn reloadFile(CharacterSet& characterSet, const std::string& filepath) {
     std::ifstream fp {filepath};
     if (!fp) {
@@ -130,14 +131,14 @@ void printHelp() {
     std::cout << "  -q\n";
     std::cout << "    - Quits the program\n";
     std::cout << "  -r\n";
-    std::cout << "    - Changes the character set\n";
+    std::cout << "    - Loads a JSON file a sets the character set to its contents\n";
     std::cout << "  -f\n";
     std::cout << "    - Translates a string into an index\n";
     std::cout << "  -b\n";
     std::cout << "    - Finds a string using an index\n";
 }
 
-// Ask user for a path to a json file with new character set
+// Ask user for a path to a JSON file with new character set
 void refile(CharacterSet& characterSet) {
     while (true) {
         std::cout << "Enter a filename (or q to quit reload): ";
@@ -213,8 +214,27 @@ void backward(const CharacterSet& characterSet) {
 }
 
 
-int main() {
+int main(int argc, char* argv[]) {
     CharacterSet characterSet {};
+    if (argc >= 2) {
+        try {
+            ReloadFileReturn reloadedFile {reloadFile(characterSet, argv[1])};
+            if (reloadedFile == ReloadFileReturn::file_not_found) {
+                std::cout << "File \"" << argv[1] << "\" not found.\n";
+                throw 0;
+            } else if (reloadedFile == ReloadFileReturn::inaccurate) {
+                std::cout << "The new character set may be inaccurate.\n";
+            }
+        } catch (...) {
+            std::cout << "The JSON is not valid and was not loaded.\n";
+            /*
+            if (argc >= 3) {
+                return 0;
+            }
+            */
+        }
+    }
+
     while (true) {
         char command {getCommand()};
         bool quit {};

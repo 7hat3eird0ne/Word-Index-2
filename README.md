@@ -10,7 +10,7 @@ Here are the two libraries (I guess you can call it? I am new to C++ so I dunno)
 
 Hello, currrently, this repository allows users to assign a unique index to any string, with the index scaling up with the length of the string
 
-For example, lets make our character set, which is pretty much a json file with all settings and order of characters, we don't have to care about the setting that much, lets just say the characters are only lowercase english alphabet letters in the same order as in alphabet
+For example, lets make our character set, which is pretty much a JSON file with all settings and order of characters, we don't have to care about the setting that much, lets just say the characters are only lowercase english alphabet letters in the same order as in alphabet
 
 The first few indexes of our character set would be:
 
@@ -79,13 +79,15 @@ This is the way the way to compute the index is derived, if you want the simple 
 
 ## How to use
 
-There are few commands you can use to use it, as seen using the 'h' command:
+You can start the executible using no commands, which doesn't load any character set, or by writing the filepath to a JSON file as the first argument to preload it
+
+There are few commands you can use after starting the executible, as seen using the 'h' command:
 - h
     - Prints help
 - q
     - Quits the program
 - r
-    - Changes the character set
+    - Loads a JSON file a sets the character set to its contents
 - f
     - Translates a string into an index
 - b
@@ -93,7 +95,7 @@ There are few commands you can use to use it, as seen using the 'h' command:
 
 ## Customisation
 
-We can customise the calculator a bit, by copying the json file and changing the following:
+We can customise the calculator a bit, by writing a JSON file and adding the following:
 - The 'order' array defines in which order do the characters go
     - Duplicates should not be present, since translating into and back from the index
     - Unicode characters are allowed, but caseSensitive should be set to true when used
@@ -107,7 +109,7 @@ We can customise the calculator a bit, by copying the json file and changing the
     - It starts indexing with the first string of that length
 - The 'strict' bool defines how it should react to unexpected characters
     - True makes it return WordIndexErrors::toIndexError, false makes it ignore them
-A character set is inaccurate if a string, which if translated to index and back from it doesn't end up looking same, exists
+A character set is inaccurate if there is an existing string, which if translated to index and back from it doesn't end up looking same.
 
 ## Algorithms intended to be done by human
 
