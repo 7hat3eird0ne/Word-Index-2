@@ -76,7 +76,11 @@ BigInt toIndex(std::string str, const CharacterSet& characterSet) {
             ++letterIndex;
         }
         if (!found) {
-            return WordIndexErrors::toIndexError;
+            if (characterSet.isStrict()) {
+                return WordIndexErrors::toIndexError;
+            } else {
+                ++curIndex;
+            }
         }
         if (index == characterSet.getMinLen()) {
             result -= (power-1)/(charsetLength-1);
@@ -136,7 +140,7 @@ bool testCharacterSet(const CharacterSet& characterSet) {
         }
     }
 
-    CharacterSet newCharacterSet {characterSet.getOrder(), characterSet.isCaseSensitive(), characterSet.isReverseAppend(), 0};
+    CharacterSet newCharacterSet {characterSet.getOrder(), characterSet.isCaseSensitive(), characterSet.isReverseAppend(), 0, true};
     for (int testedIndex {0}; testedIndex < toSign(1 + characterSet.getOrder().size() + characterSet.getOrder().size()*characterSet.getOrder().size()); ++testedIndex) {
         if (testedIndex != toIndex(fromIndex(testedIndex, newCharacterSet), newCharacterSet)) {
             return false;

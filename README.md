@@ -105,6 +105,8 @@ We can customise the calculator a bit, by copying the json file and changing the
     - For example "code" will normaly be 4 3 14 2, but with reverse append it will instead be 2 14 3 4
 - The 'minLen' integer defines what should be the minimal length available
     - It starts indexing with the first string of that length
+- The 'strict' bool defines how it should react to unexpected characters
+    - True makes it return WordIndexErrors::toIndexError, false makes it ignore it
 A character set is inaccurate if a string, which if translated to index and back from it doesn't end up looking same, exists
 
 ## Algorithms intended to be done by human

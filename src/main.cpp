@@ -59,7 +59,6 @@ std::string getString() {
         std::cin.clear();
 
         if (success) {
-            std::cout << "\n";
             return str;
         }
         std::cout << "Failed somehow.\n";
@@ -148,7 +147,8 @@ void refile(CharacterSet& characterSet) {
                 jsonCharacterSet.at("order").get<std::vector<std::string>>(),
                 jsonCharacterSet.at("caseSensitive").get<bool>(),
                 jsonCharacterSet.at("reverseAppend").get<bool>(),
-                jsonCharacterSet.at("minLen").get<int>()
+                jsonCharacterSet.at("minLen").get<int>(),
+                jsonCharacterSet.at("strict").get<bool>()
             };
             characterSet = characterSetTemp;
         } catch (const json::out_of_range& exception) {

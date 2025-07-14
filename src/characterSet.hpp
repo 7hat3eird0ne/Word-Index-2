@@ -11,13 +11,14 @@ using json = nlohmann::json;
 class CharacterSet {
 public:
     CharacterSet();
-    CharacterSet(std::vector<std::string> order, bool caseSensitive, bool reverseAppend, int minLen);
+    CharacterSet(std::vector<std::string> iOrder, bool iCaseSensitive, bool iReverseAppend, int iMinLen, bool iStrict);
 
     bool isLoaded() const;
     std::vector<std::string> getOrder() const;
     bool isCaseSensitive() const;
     bool isReverseAppend() const;
     int getMinLen() const;
+    bool isStrict() const;
 
 private:
     bool loaded {};
@@ -25,6 +26,7 @@ private:
     bool caseSensitive {true};
     bool reverseAppend {};
     int minLen {};
+    bool strict {};
 };
 
 #endif

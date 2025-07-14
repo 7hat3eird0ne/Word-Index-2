@@ -29,5 +29,6 @@
     ],
     "caseSensitive": false,
     "reverseAppend": false,
-    "minLen": 0
+    "minLen": 0,
+    "strict": true
 }

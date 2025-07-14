@@ -10,12 +10,13 @@ using json = nlohmann::json;
 CharacterSet::CharacterSet() {}
 
 // Construct using the parameters
-CharacterSet::CharacterSet(std::vector<std::string> iOrder, bool iCaseSensitive, bool iReverseAppend, int iMinLen)
+CharacterSet::CharacterSet(std::vector<std::string> iOrder, bool iCaseSensitive, bool iReverseAppend, int iMinLen, bool iStrict)
     : loaded {true}
     , order {iOrder}
     , caseSensitive {iCaseSensitive}
     , reverseAppend {iReverseAppend}
     , minLen {iMinLen}
+    , strict {iStrict}
 {}
 
 // Return CharacterSet.loaded
@@ -41,4 +42,9 @@ bool CharacterSet::isReverseAppend() const {
 // Return CharacterSet.minLen
 int CharacterSet::getMinLen() const {
     return minLen;
+}
+
+// Return CharacterSet.strict
+bool CharacterSet::isStrict() const {
+    return strict;
 }
