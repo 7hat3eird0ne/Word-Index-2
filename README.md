@@ -87,7 +87,7 @@ There are few commands you can use after starting the executible, as seen using 
 - q
     - Quits the program
 - r
-    - Loads a JSON file a sets the character set to its contents
+    - Loads a JSON file and sets the character set to its contents
 - f
     - Translates a string into an index
 - b
