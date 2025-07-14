@@ -69,5 +69,5 @@
     "caseSensitive": true,
     "reverseAppend": false,
     "minLen": 0,
-    "strict": false
+    "strict": true
 }
