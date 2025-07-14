@@ -90,6 +90,35 @@ BigInt getIndex() {
     }
 }
 
+enum class ReloadFileReturn {
+    file_not_found,
+    accurate,
+    inaccurate
+};
+
+ReloadFileReturn reloadFile(CharacterSet& characterSet, const std::string& filepath) {
+    std::ifstream fp {filepath};
+    if (!fp) {
+        return ReloadFileReturn::file_not_found;
+    }
+    json jsonCharacterSet {json::parse(fp)};
+
+    CharacterSet characterSetTemp {
+        jsonCharacterSet.at("order").get<std::vector<std::string>>(),
+        jsonCharacterSet.at("caseSensitive").get<bool>(),
+        jsonCharacterSet.at("reverseAppend").get<bool>(),
+        jsonCharacterSet.at("minLen").get<int>(),
+        jsonCharacterSet.at("strict").get<bool>()
+    };
+    characterSet = characterSetTemp;
+
+    if (!testCharacterSet(characterSet)) {
+        return ReloadFileReturn::inaccurate;
+    }
+
+    return ReloadFileReturn::accurate;
+}
+
 
 // Print help
 void printHelp() {
@@ -129,28 +158,20 @@ void refile(CharacterSet& characterSet) {
             break;
         }
 
-        std::ifstream fp {filepath};
-        if (!fp) {
-            std::cout << "File \"" << filepath << "\" not found.\n";
-            continue;
-        }
 
-        json jsonCharacterSet {};
         try {
-            jsonCharacterSet = json::parse(fp);
+            ReloadFileReturn refileReturn {reloadFile(characterSet, filepath)};
+
+            if (refileReturn == ReloadFileReturn::file_not_found) {
+                std::cout << "File \"" << filepath << "\" not found.\n";
+                continue;
+            } else if (refileReturn == ReloadFileReturn::inaccurate) {
+                std::cout << "The new character set may be inaccurate.\n";
+            }
+            
         } catch (const json::parse_error& exception) {
             std::cout << "File does not have valid JSON.\n";
             continue;
-        }
-        try {
-            CharacterSet characterSetTemp {
-                jsonCharacterSet.at("order").get<std::vector<std::string>>(),
-                jsonCharacterSet.at("caseSensitive").get<bool>(),
-                jsonCharacterSet.at("reverseAppend").get<bool>(),
-                jsonCharacterSet.at("minLen").get<int>(),
-                jsonCharacterSet.at("strict").get<bool>()
-            };
-            characterSet = characterSetTemp;
         } catch (const json::out_of_range& exception) {
             std::cout << "The JSON\'s structure is invalid.\n";
             std::cout << exception.what() << "\n";
@@ -159,10 +180,6 @@ void refile(CharacterSet& characterSet) {
             std::cout << "The JSON\'s structure is invalid.\n";
             std::cout << exception.what() << "\n";
             continue;
-        }
-
-        if (!testCharacterSet(characterSet)) {
-            std::cout << "The new character set may be inaccurate.\n";
         }
 
         return;
@@ -194,7 +211,8 @@ void backward(const CharacterSet& characterSet) {
 }
 
 
-int main() {
+int main(int argc, char* argv[]) {
+    //if (argc == 1)
     CharacterSet characterSet {};
     while (true) {
         char command {getCommand()};
