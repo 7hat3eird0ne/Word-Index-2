@@ -125,12 +125,10 @@ A character set is inaccurate if a string, which if translated to index and back
 
 1. Let I = index, N = amount of characters in character set
 1. Subtract 1 from I
-1. Let R = I modulo N
-1. Add 1 to I
-1. Divide I by N
+1. Divide I by N, let R = remainder
 1. Find the character corresponding to the remainder as an index in the character set (starting with 1 going up to N)
 1. Append the character to the end of the result string
-1. If I = 0, continue to step 9., else go to step 2.
+1. If I = 0, continue to step 7., else go to step 2.
 1. Output the result string
 
 This is most probably everything for now. Feel free to use it if it can be remotely usable in your case
